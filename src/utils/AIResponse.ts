@@ -7,12 +7,31 @@ const ai = new GoogleGenAI({
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function makeResponse(retries = 3) {
+async function makeResponse(retries = 3, emailContent: string) {
   for (let i = 0; i < retries; i++) {
     try {
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
-        contents: "Reply professionally to a customer asking for pricing.",
+        contents: `
+Read the customer email and return ONLY valid JSON:
+
+{
+  "subject": "",
+  "content": "",
+  "senderEmail": "support@mycompany.com",
+  "senderName": "Raju"
+}
+
+Rules:
+- Return one email reply only
+- content should be ready to send
+- No markdown
+- No explanations
+- JSON only
+
+Customer email:
+${emailContent}
+`,
       });
 
       return response.text;
@@ -30,8 +49,3 @@ async function makeResponse(retries = 3) {
 export const AIService = {
   makeResponse,
 };
-
-(async () => {
-  const reply = await AIService.makeResponse();
-  console.log(reply);
-})();
