@@ -25,12 +25,12 @@ git remote add origin git@github.com:RajuM1997/email-sender-server.git
 git push -u origin main
  * 
  */
-(async () => {
-  const reply = await AIService.makeResponse(
-    1,
-    "I came across your website and I'm interested in your services. Can you please share your pricing details? Also, do you offer any custom packages?",
-  );
-  console.log(reply);
-})();
+// (async () => {
+//   const reply = await AIService.makeResponse(
+//     1,
+//     "I came across your website and I'm interested in your services. Can you please share your pricing details? Also, do you offer any custom packages?",
+//   );
+//   console.log(reply);
+// })();
 
 export default app;
